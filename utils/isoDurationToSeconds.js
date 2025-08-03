@@ -1,4 +1,4 @@
-export function isoDurationToSeconds(duration){
+export function parseDuration(duration){
     const matches = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
 
     if(!matches) return 0;

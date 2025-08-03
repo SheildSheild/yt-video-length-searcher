@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 import express from 'express';
-import { isoDurationToSeconds } from '../utils/isoDurationToSeconds.js';
+import { parseDuration } from '../utils/isoDurationToSeconds.js';
 
 dotenv.config();
 
@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/video', async (req, res) => {
     try {
-        const videoId = req.query.id;
+        const { videoId, minLength: minQuery, maxLength: maxQuery } = req.query;
 
         if(!videoId) {
             return res.status(400).json({error: 'Missing video ID in query parameters'});
@@ -24,17 +24,16 @@ router.get('/video', async (req, res) => {
             return res.status(404).json({error: 'Video not found'});
         }
 
-        const videoDuration = data.items[0].contentDetails.duration;
-        const durationInSeconds = isoDurationToSeconds(videoDuration);
+        const minLength = parseInt(minQuery) || 0;
+        const maxLength = parseInt(maxQuery) || Infinity;
 
-        if(durationInSeconds >= 3600){
-            res.json({
-                id: videoId,
-                title: data.items[0].snippet.title,
-                duration: durationInSeconds
-            });
+        const videoDuration = data.items[0].contentDetails.duration;
+        const durationInSeconds = parseDuration(videoDuration);
+
+        if(durationInSeconds <= maxLength && durationInSeconds >= minLength){
+            res.json();
         } else {
-            res.json({"message" : "Video is too short!"});
+            res.json({"message" : "Video is does not fit length parameters"});
         }
 
     } catch(error){

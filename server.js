@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import videoRoutes from './routes/videoRoutes.js';
+import searchRoutes from './routes/search.js';
 
 dotenv.config();
 
@@ -11,7 +12,7 @@ app.get('/', (req, res) => {
     res.send('Youtube Length Search API is running');
 });
 
-app.use('/', videoRoutes);
+app.use('/', videoRoutes, searchRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
