@@ -1,7 +1,6 @@
 import express from 'express';
 import fetch from 'node-fetch';
 import { parseDuration } from '../utils/isoDurationToSeconds.js';
-import { filterByLength } from '../utils/filterByLength.js';
 
 const router = express.Router();
 
@@ -18,13 +17,14 @@ router.get('/search', async(req, res) => {
 
         let filteredVideos = [];
         let nextPageToken = '';
-        const resultsPerPage = 1;
+        const resultsPerPage = 10;
         const maxPages = 5;
         let pagesFetched = 0;
         let currentCount = 0;
+        const seenVideoIds = new Set();
         
-        while(filteredVideos.length <= resultsPerPage && pagesFetched < maxPages){ // This will search for videos within the length constraints until it returns a length = resultsPerPage
-            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=id&type=video&maxResults=${resultsPerPage}&q=${encodeURIComponent(q)}$pageToken=${nextPageToken}&key=${process.env.YT_API_KEY}`;
+        while(filteredVideos.length < resultsPerPage && pagesFetched < maxPages){ // This will search for videos within the length constraints until it returns a length = resultsPerPage
+            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=id&type=video&maxResults=${resultsPerPage}&q=${encodeURIComponent(q)}&pageToken=${nextPageToken}&key=${process.env.YT_API_KEY}`;
 
             const searchResponse = await fetch(searchUrl);
             const searchData = await searchResponse.json();
@@ -36,10 +36,20 @@ router.get('/search', async(req, res) => {
             const detailsResponse = await fetch(detailsURL);
             const detailsData = await detailsResponse.json();
 
-            const {matchedVideos, count: newCount} = filterByLength(detailsData, minLength, maxLength, resultsPerPage, currentCount);
+            const matchedVideos = detailsData.items.filter(video => {
+                const videoDuration = parseDuration(video.contentDetails.duration);
+                const isVideoMatched = videoDuration >= minLength && videoDuration <= maxLength;
+                if(currentCount > resultsPerPage - 1 || seenVideoIds.has(video.id)) return false;
+            
+                if(isVideoMatched) {
+                    currentCount++;
+                    seenVideoIds.add(video.id);
+                }
+
+                return isVideoMatched;
+            });
 
             filteredVideos = filteredVideos.concat(matchedVideos);
-            currentCount = newCount;
 
             nextPageToken = searchData.nextPageToken || '';
             if(!nextPageToken) break; // no more reults
