@@ -5,6 +5,8 @@ export default function ResultsPage() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const searchTerm = queryParams.get("q");
+  const maxQuery = queryParams.get("maxLength");
+  const minQuery = queryParams.get("minLength");
 
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,7 +17,7 @@ export default function ResultsPage() {
     async function fetchVideos() {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:8000/search?q=${encodeURIComponent(searchTerm)}`);
+        const response = await fetch(`http://localhost:8000/search?q=${encodeURIComponent(searchTerm)}&minLength=${minQuery}&maxLength=${maxQuery}`);
         const data = await response.json();
         setVideos(data.results || []);
       } catch (error) {
