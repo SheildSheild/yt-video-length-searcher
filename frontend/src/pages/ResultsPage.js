@@ -34,19 +34,24 @@ export default function ResultsPage() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>Search Results for: {searchTerm}</h1>
+      <h2>Search Results for: {searchTerm}</h2>
       {videos.length === 0 ? (
         <p>No results found.</p>
       ) : (
         <ul style={{ listStyleType: "none", padding: 0 }}>
           {videos.map((video, index) => (
             <li key={index} style={{ marginBottom: "20px" }}>
-              <h3>{video.snippet?.title}</h3>
-              <img
-                src={video.snippet?.thumbnails?.medium?.url}
-                alt={video.snippet?.title}
-                style={{ width: "320px" }}
-              />
+              <a
+                href={`https://www.youtube.com/watch?v=${video.videoId}`}
+                target="_blank"
+                rel="noopener noreferrer">
+                <h3>{video.snippet?.title}</h3>
+                <img
+                  src={video.snippet?.thumbnails?.medium?.url}
+                  alt={video.snippet?.title}
+                  style={{ width: "320px" }}
+                />
+              </a>
             </li>
           ))}
         </ul>
