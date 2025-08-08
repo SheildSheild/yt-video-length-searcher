@@ -44,7 +44,7 @@ export default function ResultsPage() {
           {videos.map((video, index) => (
             <li key={index} style={{ marginBottom: "20px" }}>
               <a
-                href={`https://www.youtube.com/watch?v=${video.videoId}`}
+                href={`https://www.youtube.com/watch?v=${video.id}`}
                 target="_blank"
                 rel="noopener noreferrer">
                 <h3>{video.snippet?.title}</h3>
