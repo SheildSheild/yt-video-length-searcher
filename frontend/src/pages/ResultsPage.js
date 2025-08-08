@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import parseDuration from "../utils/isoDurationToSeconds.js";
+import timeFormat from "../utils/secondsToTime.js";
 
 export default function ResultsPage() {
   const location = useLocation();
@@ -30,7 +32,7 @@ export default function ResultsPage() {
     fetchVideos();
   }, [searchTerm]);
 
-  if (loading) return <h2>Loading...</h2>;
+  if (loading) return <h2>Finding videos...</h2>;
 
   return (
     <div style={{ padding: "20px" }}>
@@ -52,6 +54,7 @@ export default function ResultsPage() {
                   style={{ width: "320px" }}
                 />
               </a>
+              <h5>{timeFormat(parseDuration(video.contentDetails.duration))}</h5>
             </li>
           ))}
         </ul>

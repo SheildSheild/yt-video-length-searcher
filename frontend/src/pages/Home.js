@@ -64,33 +64,33 @@ export default function Home() {
             </Box>
             <Box display="flex" justifyContent="center" alignItems="center" gap={8}>
                 <Box display="grid" justifyContent="center" alignItems="center" mt={2} gap={1}>
-                    <Box display="flex">
+                    <Box display="flex" color="#ffd49bff">
                         <div>Min Length: </div>
                     </Box>
                     <Box display="flex" gap={1}>
                         <DropdownMenu.Root>
-                            <DropdownMenu.Trigger>
+                            <DropdownMenu.Trigger className="DropdownTrigger">
                                 {minHours === 0.00000000000000000000001? "Hours": minHours + " Hours"}
                             </DropdownMenu.Trigger>
                                 <DropdownMenu.Portal>
                                     <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
                                         {hoursList.map(item => (
                                         <DropdownMenu.Item key={item} onSelect={() => setMinHours(item)} className="DropdownMenuItem">
-                                            <div className="RightSlot">{item} hrs</div>
+                                            <div className="LeftSlot">{item} hrs</div>
                                         </DropdownMenu.Item>
                                         ))}
                                     </DropdownMenu.Content>
                                 </DropdownMenu.Portal>
                         </DropdownMenu.Root>
                         <DropdownMenu.Root>
-                            <DropdownMenu.Trigger>
+                            <DropdownMenu.Trigger className="DropdownTrigger">
                                 {minMinutes === 0.00000000000000000000001? "Minutes": minMinutes + " Minutes"}
                             </DropdownMenu.Trigger>
                                 <DropdownMenu.Portal>
                                     <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
                                         {minutesList.map(item => (
                                         <DropdownMenu.Item key={item} onSelect={() => setMinMinutes(item)} className="DropdownMenuItem">
-                                            <div className="RightSlot">{item} mins</div>
+                                            <div className="LeftSlot">{item} mins</div>
                                         </DropdownMenu.Item>
                                         ))}
                                     </DropdownMenu.Content>
@@ -99,33 +99,33 @@ export default function Home() {
                     </Box>
                 </Box>
                 <Box display="grid" justifyContent="center" alignItems="center" mt={2} gap={1}>
-                    <Box display="flex">
+                    <Box display="flex" color="#ffd49bff">
                         <div>Max Length: </div>
                     </Box>
                     <Box display="flex" gap={1}>
                         <DropdownMenu.Root>
-                            <DropdownMenu.Trigger>
+                            <DropdownMenu.Trigger className="DropdownTrigger">
                                 {maxHours === Infinity? "Hours": maxHours + " Hours"}
                             </DropdownMenu.Trigger>
                                 <DropdownMenu.Portal>
                                     <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
                                         {hoursList.map(item => (
                                         <DropdownMenu.Item key={item} onSelect={() => setMaxHours(item)} className="DropdownMenuItem">
-                                            <div className="RightSlot">{item} hrs</div>
+                                            <div className="LeftSlot">{item} hrs</div>
                                         </DropdownMenu.Item>
                                         ))}
                                     </DropdownMenu.Content>
                                 </DropdownMenu.Portal>
                         </DropdownMenu.Root>
                         <DropdownMenu.Root>
-                            <DropdownMenu.Trigger>
+                            <DropdownMenu.Trigger className="DropdownTrigger">
                                 {maxMinutes === Infinity? "Minutes": maxMinutes + " Minutes"}
                             </DropdownMenu.Trigger>
                                 <DropdownMenu.Portal>
                                     <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
                                         {minutesList.map(item => (
                                         <DropdownMenu.Item key={item} onSelect={() => setMaxMinutes(item)} className="DropdownMenuItem">
-                                            <div className="RightSlot">{item} mins</div>
+                                            <div className="LeftSlot">{item} mins</div>
                                         </DropdownMenu.Item>
                                         ))}
                                     </DropdownMenu.Content>

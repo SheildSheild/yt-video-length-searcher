@@ -22,6 +22,22 @@ button {
 	all: unset;
 }
 
+.DropdownTrigger {
+  padding: 8px 12px;
+  width: 80px;
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.DropdownTrigger:hover {
+  background-color: #444444;
+}
+
 .DropdownMenuContent,
 .DropdownMenuSubContent {
 	/* min-width: 220px; */
@@ -69,10 +85,9 @@ button {
 	height: 25px;
 	padding: 0 5px;
 	position: relative;
-	padding-left: 25px;
 	user-select: none;
 	outline: none;
-	cursor: pointer;
+	/* cursor: pointer; */
 }
 .DropdownMenuSubTrigger[data-state="open"] {
 	background-color: var(--violet-4);
@@ -89,7 +104,7 @@ button {
 .DropdownMenuCheckboxItem[data-highlighted],
 .DropdownMenuRadioItem[data-highlighted],
 .DropdownMenuSubTrigger[data-highlighted] {
-	background-color: var(--violet-9);
+	background-color: #444444;
 	color: var(--violet-1);
 }
 

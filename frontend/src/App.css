@@ -51,9 +51,9 @@ button {
 .DropdownMenuSubContent {
 	min-width: 220px;
 	background-color: #2c2c2c;
-	color: white;
+	color: #ffd49bff;
 	backdrop-filter: none;
-	border: 1px solid #444;
+	border: 1px solid #ffd49bff;
 	border-radius: 6px;
 	padding: 5px;
 	box-shadow:
