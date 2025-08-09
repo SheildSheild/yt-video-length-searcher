@@ -14,8 +14,8 @@ export default function App() {
     <ThemeProvider theme={darkTheme}>
       <Router>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/results" element={<ResultsPage />} />
+          <Route path="" element={<HomePage />} />
+          <Route path="results" element={<ResultsPage />} />
         </Routes>
       </Router>
     </ThemeProvider>
