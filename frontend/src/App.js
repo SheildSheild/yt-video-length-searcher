@@ -12,10 +12,10 @@ const darkTheme = createTheme({
 export default function App() {
   return (
     <ThemeProvider theme={darkTheme}>
-      <Router>
+      <Router basename="/yt-video-length-searcher">
         <Routes>
-          <Route path="" element={<HomePage />} />
-          <Route path="results" element={<ResultsPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/results" element={<ResultsPage />} />
         </Routes>
       </Router>
     </ThemeProvider>
