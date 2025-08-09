@@ -40,6 +40,12 @@ jobs:
         run: npm run build
         # For CRA the output is "build"; for Vite it's "dist"
 
+      - name: Upload artifact to Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # If you use CRA, this is ./frontend/build
+          path: ./frontend
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
