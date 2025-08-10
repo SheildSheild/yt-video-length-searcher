@@ -14,7 +14,7 @@ export default function Home() {
     const [minHours, setMinHours] = useState(0.00000000000000000000001);
     const [minMinutes, setMinMinutes] = useState(0.00000000000000000000001);
     const [maxHours, setMaxHours] = useState(Infinity);
-    const [maxMinutes, setMaxMinutes] = useState(Infinity);
+    const [maxMinutes, setMaxMinutes] = useState(0.00000000000000000000001);
 
     const hoursList = [...Array.from({length: 12}, (_, i) => i), "12+"];
     const minutesList = Array.from({length: 12}, (_, i) => i * 5);
@@ -26,6 +26,19 @@ export default function Home() {
     const navigate = useNavigate();
 
     const handleSearch = () => {
+        if (maxMinutes !== 0.00000000000000000000001 && maxHours === Infinity){
+            setMaxHours(0);
+        }
+        if (minHours === 0.00000000000000000000001){
+            setMinHours(0);
+        }
+        if (minMinutes === 0.00000000000000000000001){
+            setMinMinutes(0);
+        }
+        if (maxMinutes === 0.00000000000000000000001){
+            setMaxMinutes(0);
+        }
+
         const totalMinSeconds = minHours * 3600 + minMinutes * 60;
         const totalMaxSeconds = maxHours * 3600 + maxMinutes * 60;
 
@@ -119,7 +132,7 @@ export default function Home() {
                         </DropdownMenu.Root>
                         <DropdownMenu.Root>
                             <DropdownMenu.Trigger className="DropdownTrigger">
-                                {maxMinutes === Infinity? "Minutes": maxMinutes + " Minutes"}
+                                {maxMinutes === 0.00000000000000000000001? "Minutes": maxMinutes + " Minutes"}
                             </DropdownMenu.Trigger>
                                 <DropdownMenu.Portal>
                                     <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>

@@ -24,7 +24,7 @@ export default function ResultsPage() {
     async function fetchVideos() {
       try {
         setLoading(true);
-        const response = await fetch(`https://yt-video-length-searcher.onrender.com/search?q=${encodeURIComponent(searchTerm)}&minLength=${minQuery}&maxLength=${maxQuery}`);
+        const response = await fetch(`https://http://localhost:8000/search?q=${encodeURIComponent(searchTerm)}&minLength=${minQuery}&maxLength=${maxQuery}`);
         const data = await response.json();
         setVideos(data.results || []);
       } catch (error) {
