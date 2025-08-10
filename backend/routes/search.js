@@ -17,7 +17,7 @@ router.get('/search', async(req, res) => {
 
         let filteredVideos = [];
         let nextPageToken = '';
-        const resultsPerPage = 5;
+        const resultsPerPage = 50;
         const maxPages = 1;
         let pagesFetched = 0;
         let currentCount = 0;
