@@ -85,7 +85,7 @@ export default function Home() {
                     <SearchIcon/>
                 </IconButton>
             </Box>
-            <Box display="flex" justifyContent="center" flexWrap='wrap' alignItems="center" gap={8}>
+            <Box display="flex" justifyContent="center" flexWrap='wrap' alignItems="center" gap={2}>
                 <Box display="grid" justifyContent="center" flexWrap='wrap' alignItems="center" mt={2} gap={1}>
                     <Box display="flex" color="#ffd49bff">
                         <div>Min Length: </div>
