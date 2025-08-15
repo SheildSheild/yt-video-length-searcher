@@ -74,6 +74,11 @@ export default function Home() {
                     placeholder="Seach Youtube Videos..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            handleSearch();
+                        }
+                    }}
                     sx={{width:400, ml: 5}}
                 />
                 <IconButton onClick={handleSearch}>

@@ -14,9 +14,10 @@ app.get('/', (req, res) => {
 });
 
 app.use(cors({
-    origin: "https://sheildsheild.github.io",
+    origin: ["https://sheildsheild.github.io","http://localhost:3000"],
     methods: ["GET", "POST"]
 }));
+
 
 app.use('/', videoRoutes, searchRoutes);
 
