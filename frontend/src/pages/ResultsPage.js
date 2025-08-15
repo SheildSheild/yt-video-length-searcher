@@ -41,14 +41,16 @@ export default function ResultsPage() {
 
   return (
     <div style={{
-      minHeight: '100vh',
+      minHeight: '100dvh',
       background: '#1e1e1e',
       color: '#fff',
+      overflowX: 'hidden'
     }}>
       <div style={{
         maxWidth: 1200,
         margin: '0 auto',
-        padding: '24px'
+        padding: '24px',
+        paddingTop: 72 
       }}>
         <button
           onClick={() => navigate('/')}
@@ -171,11 +173,13 @@ export default function ResultsPage() {
           src={ryukoImage}
           alt="Ryuko mascot"
           style={{
-              position: 'fixed',
-              bottom: 0,
-              right: 0,
-              width: '500px',
-              zIndex: 1000
+            position: 'fixed',
+            bottom: 0,
+            right: 0,
+            width: 'min(35vw, 500px)',
+            height: 'auto',
+            zIndex: 1000,
+            pointerEvents: 'none'
           }}
         />
 

@@ -24,6 +24,8 @@ button {
 
 .DropdownTrigger {
   padding: 8px 12px;
+  min-width: 96px;
+  text-align: center;
   width: 80px;
   background-color: #333;
   color: white;

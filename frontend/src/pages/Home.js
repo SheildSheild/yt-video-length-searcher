@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {TextField, IconButton, Box} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import {useNavigate} from 'react-router-dom';
@@ -9,12 +9,17 @@ import izumiImage from '../img/izumi1.png';
 import pepeImage from '../img/pepe1.png';
 
 export default function Home() {
+    useEffect(() => {
+        const prev = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = prev; };
+    }, []);
     const [searchTerm, setSearchTerm] = useState("");
 
-    const [minHours, setMinHours] = useState(0.00000000000000000000001);
-    const [minMinutes, setMinMinutes] = useState(0.00000000000000000000001);
+    const [minHours, setMinHours] = useState(null);
+    const [minMinutes, setMinMinutes] = useState(null);
     const [maxHours, setMaxHours] = useState(Infinity);
-    const [maxMinutes, setMaxMinutes] = useState(0.00000000000000000000001);
+    const [maxMinutes, setMaxMinutes] = useState(null);
 
     const hoursList = [...Array.from({length: 12}, (_, i) => i), "12+"];
     const minutesList = Array.from({length: 12}, (_, i) => i * 5);
@@ -26,16 +31,16 @@ export default function Home() {
     const navigate = useNavigate();
 
     const handleSearch = () => {
-        if (maxMinutes !== 0.00000000000000000000001 && maxHours === Infinity){
+        if (maxMinutes !== null && maxHours === Infinity){
             setMaxHours(0);
         }
-        if (minHours === 0.00000000000000000000001){
+        if (minHours === null){
             setMinHours(0);
         }
-        if (minMinutes === 0.00000000000000000000001){
+        if (minMinutes === null){
             setMinMinutes(0);
         }
-        if (maxMinutes === 0.00000000000000000000001){
+        if (maxMinutes === null){
             setMaxMinutes(0);
         }
 
@@ -48,18 +53,18 @@ export default function Home() {
     };
 
     return(
-        <Box sx={{height: '100vh', overflow: 'hidden'}}>
+        <Box sx={{ minHeight: '100vh', maxWidth: 1200, mx: 'auto', px: 2, height: '100vh', overflow: 'hidden', mt: { xs: 2, sm: 4, md: 8 }}}>
             <Box display="grid" justifyContent="center" alignItems="center" mt={8}>
                 <Box display="flex" justifyContent="center" alignItems="center">
-                    <h1>{title}</h1>
+                    <h1 style={{ fontSize: 'clamp(20px, 4vw, 40px)', margin: 0 }}>
+                        {title}
+                    </h1>
                 </Box>
                 <Box display="flex" justifyContent="center" alignItems="center">
                     <img
                         src={youtubeImage}
                         alt="Youtube Logo"
-                        style={{
-                            width: '550px'
-                        }}
+                        style={{ maxWidth: '100%', height: 'auto', width: 'min(60vw, 550px)' }}
                         />
                 </Box>
             </Box>
@@ -75,15 +80,15 @@ export default function Home() {
                     <SearchIcon/>
                 </IconButton>
             </Box>
-            <Box display="flex" justifyContent="center" alignItems="center" gap={8}>
-                <Box display="grid" justifyContent="center" alignItems="center" mt={2} gap={1}>
+            <Box display="flex" justifyContent="center" flexWrap='wrap' alignItems="center" gap={8}>
+                <Box display="grid" justifyContent="center" flexWrap='wrap' alignItems="center" mt={2} gap={1}>
                     <Box display="flex" color="#ffd49bff">
                         <div>Min Length: </div>
                     </Box>
                     <Box display="flex" gap={1}>
                         <DropdownMenu.Root>
                             <DropdownMenu.Trigger className="DropdownTrigger">
-                                {minHours === 0.00000000000000000000001? "Hours": minHours + " Hours"}
+                                {minHours === null? "Hours": minHours + " Hours"}
                             </DropdownMenu.Trigger>
                                 <DropdownMenu.Portal>
                                     <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
@@ -97,7 +102,7 @@ export default function Home() {
                         </DropdownMenu.Root>
                         <DropdownMenu.Root>
                             <DropdownMenu.Trigger className="DropdownTrigger">
-                                {minMinutes === 0.00000000000000000000001? "Minutes": minMinutes + " Minutes"}
+                                {minMinutes === null? "Minutes": minMinutes + " Minutes"}
                             </DropdownMenu.Trigger>
                                 <DropdownMenu.Portal>
                                     <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
@@ -111,7 +116,7 @@ export default function Home() {
                         </DropdownMenu.Root>
                     </Box>
                 </Box>
-                <Box display="grid" justifyContent="center" alignItems="center" mt={2} gap={1}>
+                <Box display="grid" justifyContent="center" flexWrap='wrap' alignItems="center" mt={2} gap={1}>
                     <Box display="flex" color="#ffd49bff">
                         <div>Max Length: </div>
                     </Box>
@@ -132,7 +137,7 @@ export default function Home() {
                         </DropdownMenu.Root>
                         <DropdownMenu.Root>
                             <DropdownMenu.Trigger className="DropdownTrigger">
-                                {maxMinutes === 0.00000000000000000000001? "Minutes": maxMinutes + " Minutes"}
+                                {maxMinutes === null? "Minutes": maxMinutes + " Minutes"}
                             </DropdownMenu.Trigger>
                                 <DropdownMenu.Portal>
                                     <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
@@ -154,7 +159,9 @@ export default function Home() {
                     position: 'fixed',
                     bottom: -93,
                     right: -80,
-                    width: '550px',
+                    width: 'min(60vw, 550px)',
+                    maxWidth: '100%',
+                    height: 'auto',
                     zIndex: 1000
                 }}
             />
@@ -165,25 +172,34 @@ export default function Home() {
                     position: 'fixed',
                     bottom: 0,
                     left: 0,
-                    width: '450px',
+                    width: 'min(40vw, 450px)',
+                    maxWidth: '100%',
+                    height: 'auto',
                     zIndex: 1000
                 }}
             />
-            <Wave fill='#ffd49bff'
+            <div
+                style={{
+                    position: 'fixed',
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    height: 'clamp(80px, 12vh, 160px)',
+                    pointerEvents: 'none',
+                    zIndex: 0
+                }}
+                >
+                <Wave
+                    fill="#ffd49bff"
                     paused={false}
                     style={{
-                        position: 'fixed',
-                        bottom: -10,
-                        left: 0,
-                        width: '100%'
+                    width: '100%',
+                    height: '100%',
+                    display: 'block'
                     }}
-                    options={{
-                        height: 5,
-                        amplitude: 20,
-                        speed: 0.20,
-                        points: 5
-                    }}
-            />
+                    options={{ height: 10, amplitude: 20, speed: 0.2, points: 5 }}
+                />
+            </div>
         </Box>
     );
 }
