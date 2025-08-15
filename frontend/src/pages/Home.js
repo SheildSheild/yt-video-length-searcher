@@ -157,9 +157,9 @@ export default function Home() {
                 alt="Izumi mascot"
                 style={{
                     position: 'fixed',
-                    bottom: -93,
-                    right: -80,
-                    width: 'min(60vw, 550px)',
+                    bottom: 0,
+                    right: 0,
+                    width: 'min(40vw, 500px)',
                     maxWidth: '100%',
                     height: 'auto',
                     zIndex: 1000
