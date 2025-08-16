@@ -25,3 +25,5 @@ Built for fun, practice, and because YouTube’s “> 20 minutes” filter isn�
 4. You get thumbnails, titles, and formatted times (`1:23:45` or `54:21` if no hours).  
 
 ---
+
+(Still updating from time to time by adding little features here and there 👀)
